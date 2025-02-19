@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,  
+  password: process.env.DB_PASSWORD,   
   database: process.env.DB_NAME,
 });
 
@@ -19,14 +19,10 @@ db.connect((err) => {
     console.error("Database connection failed: " + err.stack);
     return;
   }
-  console.log("Connected to MySQL database");
 });
 
 app.post("/refer", (req, res) => {
   const { user_name, user_email, friend_name, friend_email, course_name } = req.body;
-  console.log("Enter here ");
-  console.log(req.body);
-  
   
   if (!user_name || !user_email || !friend_name || !friend_email || !course_name) {
     return res.status(400).json({ error: "All fields are required" });
@@ -39,9 +35,9 @@ app.post("/refer", (req, res) => {
       console.error("Error inserting data: ", err);
       return res.status(500).json({ error: "Database error" });
     }
-    res.status(200).json({ message: "Referral submitted successfully!" });
+    res.status(200).json({ message: "Referral submitted successfully!" }); 
   });
 });
 app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+  console.log(`Server is running `);
 });
